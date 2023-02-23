@@ -117,7 +117,7 @@ public class Village {
 					etals[i].afficherEtal();
 			}
 			if (nbEtalsVide>0)
-				System.out.println("Il reste " + nbEtalsVide + "  étals non utilisés dans le marché.");
+				System.out.println("Il reste " + nbEtalsVide + "  ï¿½tals non utilisï¿½s dans le marchï¿½.");
 		}
 	}
 
@@ -128,10 +128,10 @@ public class Village {
 		chaine.append(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + ' ' + produit +".\n");
 		
 		if (indEtalLibre == -1)
-			chaine.append("Il n'y a plus d'étals disponibles.\n");
+			chaine.append("Il n'y a plus d'etals disponibles.\n");
 		else {
 			marche.utiliserEtal(indEtalLibre, vendeur, produit, nbProduit);
-			chaine.append("Le vendeur " + vendeur.getNom() + " vend des " + produit + " à l'étal n°" + indEtalLibre+1 + ".\n");
+			chaine.append("Le vendeur " + vendeur.getNom() + " vend des " + produit + " a l'etal nÂ°" + (indEtalLibre + 1) + ".\n");
 		}
 		
 		return chaine.toString();
