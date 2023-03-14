@@ -1,10 +1,10 @@
 # UPS - Licence Info - ILU2
 
-### NOM :
-### Prénom :
+### NOM : BARBERO
+### Prénom : Kylian
 ### Groupe de TP :
 - [ ] A11
-- [ ] A12
+- [x] A12
 - [ ] B11
 - [ ] B12
 
