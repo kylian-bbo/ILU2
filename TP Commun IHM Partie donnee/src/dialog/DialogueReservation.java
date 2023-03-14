@@ -27,7 +27,8 @@ public class DialogueReservation {
 	
 	
 	public void handleDateSelectedEvent(String date) {
-		//TODO
+		this.date = date;
+		presentationReservation.enableTime();
 	}
 	
 	public void handleTimeSelectedEvent(String time) {
