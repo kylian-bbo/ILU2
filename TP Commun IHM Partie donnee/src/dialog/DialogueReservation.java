@@ -32,24 +32,28 @@ public class DialogueReservation {
 	}
 	
 	public void handleTimeSelectedEvent(String time) {
-		//TODO
+		this.time = time;
+		presentationReservation.enableNumofPersons();
+		
 	}
 	
 	public void handleNumofPersonsSelectedEvent(String numPersons) {
-		//TODO
+		this.numPersons = numPersons;
+		presentationReservation.enableTableMap();
 	}
 	
 	public void handleTableSelectedEvent(int numTable) {
-		//TODO
+		this.numTable = numTable++;
+		presentationReservation.enableValidation();
 	}
-	
-	public void handleCancelEvent() {
 		
+	public void handleCancelEvent() {
+		presentationReservation.initPresentation();
 	}
 	
 	public void handleValidateEvent() {
 		//Display confirmation window using JOptionPane
-		presentationReservation.enableValidationInformation(date, time, numPersons,numTable);
+		presentationReservation.enableValidationInformation(date, time, numPersons, numTable);
 	}
 	
 	

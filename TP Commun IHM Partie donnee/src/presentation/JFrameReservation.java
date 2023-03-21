@@ -24,6 +24,15 @@ import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JLayeredPane;
+import javax.swing.JDesktopPane;
 
 
 public class JFrameReservation extends JFrame {
@@ -40,15 +49,16 @@ public class JFrameReservation extends JFrame {
 	private JLabel lblNumofPersons;
 	private DatePicker datePicker;
 	private JPanel panelTable;
-	private JLabel lblTableMap;
+	private JLabel lblTableMap2;
 	private JButton btnValidate;
 	private JPanel panelConfirmCancel;
 	private DialogueReservation dialogueReservation;
 	private JComboBox timeComboBox;
-	private JLabel lblNewLabel;
-	private JButton btnNewButton;
-	private JComboBox comboBox_1;
-	private JList list;
+	private JLabel lblTableMap;
+	private JButton btnCancel;
+	private JComboBox NumofPersonsComboBox;
+	private JList TableList;
+	private JDesktopPane desktopPane;
 
 
 	/**
@@ -95,15 +105,33 @@ public class JFrameReservation extends JFrame {
 					.addContainerGap())
 		);
 		
-		lblTableMap = new JLabel("");
+		lblTableMap2 = new JLabel("");
+		lblTableMap2.setEnabled(false);
+		lblTableMap2.setIcon(new ImageIcon(JFrameReservation.class.getResource("/resources/Plan_tables.JPG")));
+		
+		lblTableMap = new JLabel("3. Choisissez votre table");
 		lblTableMap.setEnabled(false);
-		lblTableMap.setIcon(new ImageIcon(JFrameReservation.class.getResource("/resources/Plan_tables.JPG")));
+		lblTableMap.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		lblNewLabel = new JLabel("3. Choisissez votre table");
-		lblNewLabel.setEnabled(false);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		TableList = new JList();
+		TableList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				do_TableList_valueChanged(e);
+			}
+		});
+		TableList.setEnabled(false);
+		TableList.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		TableList.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Table 1", "Table 2", "Table 3", "Table 4", "Table 5", "Table 6"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
 		
-		list = new JList();
+		desktopPane = new JDesktopPane();
 		GroupLayout gl_panelTable = new GroupLayout(panelTable);
 		gl_panelTable.setHorizontalGroup(
 			gl_panelTable.createParallelGroup(Alignment.LEADING)
@@ -111,32 +139,44 @@ public class JFrameReservation extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panelTable.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelTable.createSequentialGroup()
-							.addComponent(lblTableMap, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(list, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-							.addGap(9))
-						.addComponent(lblNewLabel))
-					.addContainerGap())
+							.addGroup(gl_panelTable.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelTable.createSequentialGroup()
+									.addComponent(lblTableMap2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addGap(25)
+									.addComponent(TableList, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+									.addGap(20))
+								.addComponent(lblTableMap))
+							.addContainerGap())
+						.addGroup(Alignment.TRAILING, gl_panelTable.createSequentialGroup()
+							.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+							.addGap(225))))
 		);
 		gl_panelTable.setVerticalGroup(
 			gl_panelTable.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelTable.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel)
-					.addGap(32)
+					.addComponent(lblTableMap)
+					.addGap(13)
+					.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
 					.addGroup(gl_panelTable.createParallelGroup(Alignment.LEADING)
-						.addComponent(list, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTableMap, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(TableList, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+						.addComponent(lblTableMap2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		panelTable.setLayout(gl_panelTable);
 		
 		btnValidate = new JButton("Valider");
+		btnValidate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnValidate_actionPerformed(e);
+			}
+		});
 		btnValidate.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		btnNewButton = new JButton("Annuler");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.addActionListener(new ActionListener() {
+		btnCancel = new JButton("Annuler");
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnNewButton_actionPerformed(e);
 			}
@@ -148,7 +188,7 @@ public class JFrameReservation extends JFrame {
 					.addContainerGap(285, Short.MAX_VALUE)
 					.addComponent(btnValidate, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButton)
+					.addComponent(btnCancel)
 					.addContainerGap())
 		);
 		gl_panelConfirmCancel.setVerticalGroup(
@@ -157,7 +197,7 @@ public class JFrameReservation extends JFrame {
 					.addContainerGap(25, Short.MAX_VALUE)
 					.addGroup(gl_panelConfirmCancel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnValidate, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnCancel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		panelConfirmCancel.setLayout(gl_panelConfirmCancel);
@@ -166,8 +206,14 @@ public class JFrameReservation extends JFrame {
 		lblNumofPersons.setEnabled(false);
 		lblNumofPersons.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		comboBox_1 = new JComboBox();
-		comboBox_1.setEnabled(false);
+		NumofPersonsComboBox = new JComboBox();
+		NumofPersonsComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_NumofPersonsComboBox_actionPerformed(e);
+			}
+		});
+		NumofPersonsComboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8"}));
+		NumofPersonsComboBox.setEnabled(false);
 		GroupLayout gl_panelNumofPersons = new GroupLayout(panelNumofPersons);
 		gl_panelNumofPersons.setHorizontalGroup(
 			gl_panelNumofPersons.createParallelGroup(Alignment.LEADING)
@@ -178,7 +224,7 @@ public class JFrameReservation extends JFrame {
 							.addComponent(lblNumofPersons, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelNumofPersons.createSequentialGroup()
 							.addGap(105)
-							.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(NumofPersonsComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(126, Short.MAX_VALUE))
 		);
 		gl_panelNumofPersons.setVerticalGroup(
@@ -187,7 +233,7 @@ public class JFrameReservation extends JFrame {
 					.addGap(10)
 					.addComponent(lblNumofPersons, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(NumofPersonsComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(33))
 		);
 		panelNumofPersons.setLayout(gl_panelNumofPersons);
@@ -262,10 +308,15 @@ public class JFrameReservation extends JFrame {
 		lblChooseDate.setEnabled(true);
 		datePicker.setEnabled(true);
 		lblChooseTime.setEnabled(false);
+		timeComboBox.setEnabled(false);
 		lblNumofPersons.setEnabled(false);
+		NumofPersonsComboBox.setEnabled(false);
 		lblTableMap.setEnabled(false);
+		lblTableMap2.setEnabled(false);
+		TableList.setEnabled(false);
+		NumofPersonsComboBox.setEnabled(false);
 		btnValidate.setEnabled(false);
-		
+
 		System.out.println("InitPresentation done");
 	}
 	
@@ -276,16 +327,39 @@ public class JFrameReservation extends JFrame {
 	
 	public void enableNumofPersons() {
 		lblNumofPersons.setEnabled(true);
+		NumofPersonsComboBox.setEnabled(true);
 		
 	}
 	
 	public void enableTableMap() {
 		lblTableMap.setEnabled(true);
+		lblTableMap2.setEnabled(true);
+		TableList.setEnabled(true);
 	}
 	
+	public void enableValidation() {
+		btnValidate.setEnabled(true);
+	}
 	
 	public void enableValidationInformation(String date, String time, String numPersons, int numTable) {
+		lblChooseDate.setEnabled(false);
+		datePicker.setEnabled(false);
+		lblChooseTime.setEnabled(false);
+		timeComboBox.setEnabled(false);
+		lblNumofPersons.setEnabled(false);
+		NumofPersonsComboBox.setEnabled(false);
+		lblTableMap.setEnabled(false);
+		lblTableMap2.setEnabled(false);
+		TableList.setEnabled(false);
+		NumofPersonsComboBox.setEnabled(false);
+		btnValidate.setEnabled(false);
+		btnCancel.setEnabled(false);
 		
+		showMessageDialog(this,"Réservation confirmée le " + date + " à " + time + " pour " + numPersons + " personnes à la table " + numTable + ".", "Confirmation de réservation");
+	}
+	
+	public static int showMessageDialog(Component parentComponent, Object message, String title) {
+		return 0;
 	}
 	
 	
@@ -300,12 +374,23 @@ public class JFrameReservation extends JFrame {
 	}
 	
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
+		dialogueReservation.handleCancelEvent();
 	}
 	
 	protected void do_datePickerComponentToggleCalendarButton_actionPerformed(ActionEvent e) {
 	}
 	
 	protected void do_timeComboBox_actionPerformed(ActionEvent e) {
-		//dialogueReservation.handleTimeSelectedEvent(e);
+		dialogueReservation.handleTimeSelectedEvent(timeComboBox.getSelectedItem().toString());
+	}
+	protected void do_NumofPersonsComboBox_actionPerformed(ActionEvent e) {
+		dialogueReservation.handleNumofPersonsSelectedEvent(NumofPersonsComboBox.getSelectedItem().toString());
+	}
+	protected void do_TableList_valueChanged(ListSelectionEvent e) {
+		dialogueReservation.handleTableSelectedEvent(TableList.getSelectedIndex());
+	}
+	
+	protected void do_btnValidate_actionPerformed(ActionEvent e) {
+		dialogueReservation.handleValidateEvent();
 	}
 }
