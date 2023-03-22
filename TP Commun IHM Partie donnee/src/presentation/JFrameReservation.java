@@ -7,6 +7,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
@@ -167,6 +168,7 @@ public class JFrameReservation extends JFrame {
 		panelTable.setLayout(gl_panelTable);
 		
 		btnValidate = new JButton("Valider");
+		btnValidate.setEnabled(false);
 		btnValidate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnValidate_actionPerformed(e);
@@ -316,6 +318,7 @@ public class JFrameReservation extends JFrame {
 		TableList.setEnabled(false);
 		NumofPersonsComboBox.setEnabled(false);
 		btnValidate.setEnabled(false);
+		btnCancel.setEnabled(true);
 
 		System.out.println("InitPresentation done");
 	}
@@ -355,12 +358,11 @@ public class JFrameReservation extends JFrame {
 		btnValidate.setEnabled(false);
 		btnCancel.setEnabled(false);
 		
-		showMessageDialog(this,"Réservation confirmée le " + date + " à " + time + " pour " + numPersons + " personnes à la table " + numTable + ".", "Confirmation de réservation");
+		JOptionPane.showMessageDialog( this, "RÃ©servation confirmÃ©e le " + date + " Ã  " + time + " pour " + numPersons +" personnes Ã  la table " + numTable + ".", "Confirmation de rÃ©servation", JOptionPane.INFORMATION_MESSAGE);
+		
+		initPresentation();
 	}
 	
-	public static int showMessageDialog(Component parentComponent, Object message, String title) {
-		return 0;
-	}
 	
 	
 //Record reference to Dialogue

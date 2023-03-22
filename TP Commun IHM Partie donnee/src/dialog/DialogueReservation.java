@@ -43,11 +43,16 @@ public class DialogueReservation {
 	}
 	
 	public void handleTableSelectedEvent(int numTable) {
-		this.numTable = numTable++;
+		numTable++;
+		this.numTable = numTable;
 		presentationReservation.enableValidation();
 	}
 		
 	public void handleCancelEvent() {
+		this.date = null;
+		this.time = null;
+		this.numPersons = null;
+		this.numTable = 0;
 		presentationReservation.initPresentation();
 	}
 	
