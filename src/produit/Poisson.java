@@ -1,11 +1,13 @@
 package produit;
 
 public class Poisson extends Produit {
+	private int poids;
 	private String datePeche;
 	
-	public Poisson(Unite unite, String datePeche) {
-		super("Poisson", unite);
+	public Poisson(int poids, String datePeche) {
+		super("Poisson", Unite.kilogramme);
 		this.datePeche = datePeche;
+		this.poids = poids;
 	}
 	
 	@Override
