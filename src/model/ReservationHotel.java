@@ -1,9 +1,9 @@
 package model;
 
 public class ReservationHotel extends Reservation {
-	public int nbLitSimple;
-	public int nbLitDouble;
-	public int numChambre;
+	private int nbLitSimple;
+	private int nbLitDouble;
+	private int numChambre;
 	
 	public ReservationHotel(int jour, int mois, int nbLitSimple, int nbLitDouble, int numChambre) {
 		super(jour, mois);

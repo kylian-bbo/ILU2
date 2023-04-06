@@ -1,8 +1,8 @@
 package model;
 
 public class ReservationRestaurant extends Reservation {
-	public int numService;
-	public int numTable;
+	private int numService;
+	private int numTable;
 	
 	public ReservationRestaurant(int jour, int mois, int numService, int numTable) {
 		super(jour, mois);
