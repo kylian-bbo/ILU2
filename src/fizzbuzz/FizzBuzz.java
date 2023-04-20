@@ -6,11 +6,14 @@ public class FizzBuzz {
 	private static final String[] traduction = {"fizz", "buzz"};
 	
 	public String fizzBuzz(int numero) {
+		StringBuilder sb = new StringBuilder();
 		for (int i=0; i<numSpeciaux.length; i++) {
 			if (numero % numSpeciaux[i] == 0) {
-				return traduction[i];
+				sb.append(traduction[i]);
 			}
 		}
-		return Integer.toString(numero);
+		if (sb.isEmpty())
+			return Integer.toString(numero);
+		return sb.toString();
 	}
 }
