@@ -21,7 +21,6 @@ class WelcomeTest {
 		assertEquals("HELLO, JERRY !", Welcome.welcome("JERRY"));
 	}
 	
-	
 	@Test
 	void ITER_4() {
 		assertEquals("Hello, Amy and Bob", Welcome.welcome("amy,bob"));
@@ -41,5 +40,10 @@ class WelcomeTest {
 	void ITER_7() {
 		assertEquals("Hello, Bob, Amy and Jerry", Welcome.welcome("bob, amy, jerry"));
 		assertEquals("Hello, Bob and Jerry. AND HELLO, AMY AND JACK !", Welcome.welcome("bob, AMY, jerry, JACK"));		
+	}
+	
+	@Test
+	void ITER_8() {
+		assertEquals("Hello, Bob and Amy", Welcome.welcome("bob    , amy   "));		
 	}
 }
