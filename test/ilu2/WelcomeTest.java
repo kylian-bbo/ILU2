@@ -13,6 +13,11 @@ class WelcomeTest {
 	
 	@Test
 	void ITER_2() {
-		assertEquals("Hello, my friend",Welcome.welcome("    "));
+		assertEquals("Hello, my friend", Welcome.welcome("    "));
+	}
+	
+	@Test
+	void ITER_3() {
+		assertEquals("HELLO, JERRY !", Welcome.welcome("JERRY"));
 	}
 }

@@ -6,9 +6,18 @@ public class Welcome {
 			return "Hello, my friend";
 		
 		StringBuilder output = new StringBuilder();
-
-		output.append("Hello, ");
-		output.append(input.substring(0,1).toUpperCase() + input.substring(1));
+		String nom = input;
+		
+		if (nom.equals(nom.toUpperCase())) {
+			output.append("HELLO, ");
+			output.append(nom);
+			output.append(" !");
+			
+		}
+		else {
+			output.append("Hello, ");
+			output.append(nom);
+		}
 		
 		return output.toString();
 	}
