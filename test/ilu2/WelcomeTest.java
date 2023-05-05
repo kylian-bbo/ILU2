@@ -26,4 +26,9 @@ class WelcomeTest {
 	void ITER_4() {
 		assertEquals("Hello, Amy, Bob", Welcome.welcome("amy,bob"));
 	}
+	
+	@Test
+	void ITER_5() {
+		assertEquals("Hello, Amy, Bob, Jerry", Welcome.welcome("Amy, bob,jerry"));
+	}
 }

@@ -14,31 +14,26 @@ public class Welcome {
 	private static String gestionOutput(String[] noms) {
 		StringBuilder output = new StringBuilder();
 		
-		if (noms.length == 2) {
-			output.append("Hello, ");
-			output.append(formatNom(noms[0]));
-			output.append(", ");
-			output.append(formatNom(noms[1]));
-		}
-		
-		else {
-			if (noms[0].equals(noms[0].toUpperCase())) {
-				output.append("HELLO, ");
-				output.append(noms[0]);
-				output.append(" !");
-				
-			}
-			else {
-				output.append("Hello, ");
-				output.append(formatNom(noms[0]));
-			}
+		for (int i=0; i<noms.length; i++) {
+			if (i>0)
+				output.append(", ");
+			output.append(formatNom(noms[i]));
 		}
 
+		if (noms[0].equals(noms[0].toUpperCase())) {
+			output.insert(0,"HELLO, ");
+			output.append(" !");
+		}
+		else
+			output.insert(0,"Hello, ");
+		
 		return output.toString();
 	}
 		
-	
-	private static String formatNom(String nom) {
+	private static String formatNom(String nomTemp) {
+		String nom = nomTemp.trim();
+		if (nom.equals(nom.toUpperCase()))
+			return nom;
 		return nom.substring(0,1).toUpperCase() + nom.substring(1);
 	}
 }
