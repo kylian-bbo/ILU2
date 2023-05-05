@@ -14,20 +14,48 @@ public class Welcome {
 	private static String gestionOutput(String[] noms) {
 		StringBuilder output = new StringBuilder();
 		
-		for (int i=0; i<noms.length; i++) {
-			if (i>0)
-				output.append(", ");
-			output.append(formatNom(noms[i]));
-		}
-
-		if (noms[0].equals(noms[0].toUpperCase())) {
-			output.insert(0,"HELLO, ");
-			output.append(" !");
-		}
-		else
-			output.insert(0,"Hello, ");
+		gestionOutputMin(noms, output);
+		gestionOutputMaj(noms, output);
 		
 		return output.toString();
+	}
+	
+	private static void gestionOutputMin(String[] noms, StringBuilder output) {
+		for (int i=0; i<noms.length; i++) {
+			if (!(noms[i].equals(noms[i].toUpperCase()))) {
+				if (i>0)
+					output.append(", ");
+				if (i==0)
+					output.append("Hello, ");
+				
+				output.append(formatNom(noms[i]));
+			}
+		}
+	}
+	
+	private static void gestionOutputMaj(String[] noms, StringBuilder output) {
+		boolean nomMajPresent = false;
+		int numNomMaj = 0;
+		
+		for (int i=0; i<noms.length; i++) {
+			if (noms[i].equals(noms[i].toUpperCase())) {
+				numNomMaj++;
+				if (numNomMaj==1) {
+					if (!output.isEmpty())
+						output.append(". AND ");
+					output.append("HELLO, ");
+				}
+				if (numNomMaj>1)
+					output.append(", ");
+			
+				output.append(formatNom(noms[i]));
+				
+				if (!nomMajPresent)
+					nomMajPresent = true;
+			}
+		}
+		if (nomMajPresent)
+			output.append(" !");
 	}
 		
 	private static String formatNom(String nomTemp) {
